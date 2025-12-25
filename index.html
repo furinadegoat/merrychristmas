@@ -1,0 +1,208 @@
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Merry Christmas Giang 💖</title>
+
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        background: radial-gradient(circle at top, #1b2735, #090a0f);
+        overflow: hidden;
+        font-family: 'Segoe UI', sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+    }
+
+    .card {
+        position: relative;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(12px);
+        border-radius: 25px;
+        padding: 45px 65px;
+        text-align: center;
+        box-shadow: 0 0 40px rgba(255, 120, 180, 0.35);
+        animation: fadeUp 2s ease;
+        max-width: 520px;
+    }
+
+    h1 {
+        font-size: 44px;
+        color: #ffd6e7;
+        text-shadow: 0 0 12px #ff9ecb;
+        margin-bottom: 10px;
+    }
+
+    h2 {
+        font-weight: 400;
+        margin-bottom: 25px;
+        color: #ffeef5;
+    }
+
+    #message {
+        font-size: 18px;
+        line-height: 1.7;
+        min-height: 130px;
+        white-space: pre-line;
+    }
+
+    button {
+        margin-top: 25px;
+        padding: 12px 28px;
+        border: none;
+        border-radius: 30px;
+        background: linear-gradient(135deg, #ff7eb3, #ff4d6d);
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0 0 15px rgba(255, 80, 130, 0.6);
+        transition: transform 0.2s;
+    }
+
+    button:hover {
+        transform: scale(1.08);
+    }
+
+    .heart-glow {
+        font-size: 60px;
+        margin-top: 20px;
+        animation: pulse 1.2s infinite;
+        text-shadow: 0 0 15px #ff7eb3;
+    }
+
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.35); }
+    }
+
+    @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(40px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Snow */
+    .snow {
+        position: absolute;
+        top: -10px;
+        color: white;
+        user-select: none;
+        animation: fall linear infinite;
+        opacity: 0.9;
+    }
+
+    @keyframes fall {
+        to { transform: translateY(110vh); }
+    }
+
+    /* Floating hearts */
+    .float-heart {
+        position: absolute;
+        bottom: -20px;
+        font-size: 24px;
+        animation: floatUp linear forwards;
+        opacity: 0.9;
+    }
+
+    @keyframes floatUp {
+        to {
+            transform: translateY(-110vh);
+            opacity: 0;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h1>🎄 Merry Christmas 🎄</h1>
+    <h2>Gửi đến <b>Giang</b> 💌</h2>
+
+    <div id="message"></div>
+
+    <button onclick="showMore()"> Không bấm </button>
+
+    <div class="heart-glow">💗</div>
+</div>
+
+<!-- 🎵 NHẠC NỀN -->
+<audio id="bgm" loop>
+    <source src="dangxinh-lowg.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+    /* Typewriter */
+    const text =
+`Giáng Sinh này,
+em tặng chị web này
+tại em muốn tặng chị nhiều cái khác vl
+nhưng chị đéo cho 😭
+
+Chị Giang xinh vui vẻ nhé 💖`;
+
+    let i = 0;
+    function typeText() {
+        if (i < text.length) {
+            document.getElementById("message").innerHTML += text.charAt(i);
+            i++;
+            setTimeout(typeText, 40);
+        }
+    }
+    typeText();
+
+    /* Button + Music */
+    function showMore() {
+        document.getElementById("message").innerHTML =
+`Thật ra…
+dạo này em đang burnt out
+
+nên không nhắn tin cho chị nhiều được
+với cả ngại vl nữa
+nên là bỏ quá cho em nha 🥹`;
+
+        fadeInMusic(document.getElementById("bgm"));
+    }
+
+    /* Fade-in music */
+    function fadeInMusic(audio) {
+        audio.volume = 0;
+        audio.play();
+        let v = 0;
+        const fade = setInterval(() => {
+            v += 0.02;
+            audio.volume = Math.min(v, 0.45);
+            if (v >= 0.45) clearInterval(fade);
+        }, 120);
+    }
+
+    /* Snow */
+    function createSnow() {
+        const snow = document.createElement("div");
+        snow.className = "snow";
+        snow.innerHTML = "❄";
+        snow.style.left = Math.random() * window.innerWidth + "px";
+        snow.style.fontSize = (Math.random() * 10 + 10) + "px";
+        snow.style.animationDuration = (Math.random() * 4 + 3) + "s";
+        document.body.appendChild(snow);
+        setTimeout(() => snow.remove(), 7000);
+    }
+    setInterval(createSnow, 200);
+
+    /* Floating hearts */
+    const hearts = ["💗", "💖", "💘"];
+    function createHeart() {
+        const heart = document.createElement("div");
+        heart.className = "float-heart";
+        heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 6000);
+    }
+    setInterval(createHeart, 500);
+</script>
+
+</body>
+</html>
